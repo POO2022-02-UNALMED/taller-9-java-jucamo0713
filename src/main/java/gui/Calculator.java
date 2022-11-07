@@ -150,11 +150,23 @@ public class Calculator extends VBox implements EventHandler<ActionEvent> {
             case "-":
             case "/":
                 if (!Objects.equals(number1, "") && !Objects.equals(number2, "")) {
-                    number1 = resolveOperation(operator);
                     operator = value;
+                    number1 = resolveOperation(operator);
                     displayText.setText(number1);
                     number2 = "";
-                } else if (!Objects.equals(number1, "")) {
+                } else if (value.equals("-") && ((operator == null && Objects.equals(number1, "")) || (operator != null && Objects.equals(number2, "")))){
+                    if (Objects.equals(operator, "=")){
+                        number1 = value;
+                        operator = null;
+                        displayText.setText(number1);
+                    }else if (operator != null){
+                        number2+= value;
+                        displayText.setText(number2);
+                    }else{
+                        number1+= value;
+                        displayText.setText(number1);
+                    }
+                }else if (!Objects.equals(number1, "")) {
                     operator = value;
                     displayText.setText("");
                 }
